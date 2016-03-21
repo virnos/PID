@@ -1,8 +1,6 @@
 package main
 
 import (
-	_ "PID/routers"
-
 	"github.com/astaxie/beego"
 )
 
