@@ -2,12 +2,12 @@ package routers
 
 import (
 	"PID/controllers"
+	cms "PID/controllers/cms"
 
 	"github.com/astaxie/beego"
-	"github.com/beego/admin"
 )
 
 func init() {
-	admin.Run()
 	beego.Router("/", &controllers.MainController{})
+	beego.Router("/cms/device", &cms.ProjectController{})
 }
