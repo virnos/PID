@@ -3,10 +3,20 @@ package models
 import (
 	"errors"
 	"log"
+	"os"
+	"path"
 	"time"
 
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/validation"
+	_ "github.com/mattn/go-sqlite3"
+
+	"github.com/Unknwon/com"
+)
+
+const (
+	_DB_NAME        = "data/PID.db"
+	_SQLITE3_DRIVER = "sqlite3"
 )
 
 //设备表
@@ -50,13 +60,20 @@ func checkProject(p *Project) (err error) {
 }
 
 func init() {
+	if !com.IsExist(_DB_NAME) {
+		os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
+		os.Create(_DB_NAME)
+	}
 	orm.RegisterModel(new(Project))
+	orm.RegisterDriver(_SQLITE3_DRIVER, orm.DRSqlite)
+	orm.RegisterDataBase("default", _SQLITE3_DRIVER, _DB_NAME, 10)
+
 }
 
 /************************************************************/
 
 //get user list
-func query(page int64, page_size int64, sort string) (projects []orm.Params, count int64) {
+func QueryProject(page int64, page_size int64, sort string) (projects []orm.Params, count int64) {
 	o := orm.NewOrm()
 	project := new(Project)
 	qs := o.QueryTable(project)
