@@ -92,66 +92,33 @@
     </div>
 
     <hr/>
-
     <div class="am-g">
 
-      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
-        <div class="am-panel am-panel-default">
-          <div class="am-panel-bd">
-            <div class="am-g">
-              <div class="am-u-md-10">
-                <p>你可以上传工程文件包。 </p>
-                <form class="am-form">
-                  <div class="am-form-group">
-                    <input type="file" id="user-pic">
-                    <p class="am-form-help">请选择要上传的文件...</p>
-                    <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="am-panel am-panel-default">
-          <div class="am-panel-bd">
-            <div class="user-info">
-              <p>等级信息</p>
-              <div class="am-progress am-progress-sm">
-                <div class="am-progress-bar" style="width: 60%"></div>
-              </div>
-              <p class="user-info-order">当前等级：<strong>LV8</strong> 活跃天数：<strong>587</strong> 距离下一级别：<strong>160</strong></p>
-            </div>
-            <div class="user-info">
-              <p>信用信息</p>
-              <div class="am-progress am-progress-sm">
-                <div class="am-progress-bar am-progress-bar-success" style="width: 80%"></div>
-              </div>
-              <p class="user-info-order">信用等级：正常当前 信用积分：<strong>80</strong></p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
-        <form class="am-form am-form-horizontal">
+      <div class="am-u-sm-12">
+        <form class="am-form am-form-horizontal" id="project" method="post" action="/project/save">
           <div class="am-form-group">
             <label for="name" class="am-u-sm-5 am-form-label">工程名 / Name</label>
             <div class="am-u-sm-7">
-              <input type="text" id="name" placeholder="工程名 / Name">
+              <input type="text" id="name" name="name" placeholder="工程名 / Name">
               <small>输入工程名, 如cms-manage, 和war包名一样哦. </small>
+            </div>
+          </div>
+		  <div class="am-form-group">
+            <label for="ipAddress" class="am-u-sm-5 am-form-label">IP地址 / IpAddress</label>
+            <div class="am-u-sm-7">
+              <input type="text" id="ipAddress" placeholder="输入设备的IP地址 / IpAddress">
+			  <small>输入设备的IP地址...</small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="username" class="am-u-sm-5 am-form-label">用户名 / Username</label>
             <div class="am-u-sm-7">
-              <input type="text" id="username" placeholder="输入设备的用户名 / Username">
+              <input type="text" id="username" name="username" ng-model="username" placeholder="输入设备的用户名 / Username">
               <small>登录设备的用户名...</small>
             </div>
           </div>
-
+		  
           <div class="am-form-group">
             <label for="password" class="am-u-sm-5 am-form-label">密码 / Password</label>
             <div class="am-u-sm-7">
@@ -161,26 +128,18 @@
           </div>
 		
           <div class="am-form-group">
-            <label for="ipAddress" class="am-u-sm-5 am-form-label">IP地址 / IpAddress</label>
+            <label for="path" class="am-u-sm-5 am-form-label">工程路径 / Path</label>
             <div class="am-u-sm-7">
-              <input type="text" id="ipAddress" placeholder="输入设备的IP地址 / IpAddress">
-			  <small>输入设备的IP地址...</small>
-            </div>
-          </div>
-
-          <div class="am-form-group">
-            <label for="ipAddress" class="am-u-sm-5 am-form-label">工程路径 / Path</label>
-            <div class="am-u-sm-7">
-              <input type="text" id="ipAddress" placeholder="输入工程路径 / Path">
+              <input type="text" id="path" placeholder="输入工程路径 / Path">
 			  <small>输入工程路径...</small>
             </div>
           </div>
 		
           <div class="am-form-group">
-            <label for="port" class="am-u-sm-5 am-form-label">服务端口号 / Port</label>
+            <label for="port" class="am-u-sm-5 am-form-label">端口号 / Port</label>
             <div class="am-u-sm-7">
-              <input type="text" id="port" placeholder="输入服务端口号 / Port">
-			  <small>输入服务端口号...</small>
+              <input type="text" id="port" placeholder="输入端口号 / Port">{{100}}</input>
+			  <small>输入端口号...</small>
             </div>
           </div>
 
@@ -194,7 +153,7 @@
 
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
-              <button type="button" class="am-btn am-btn-primary">保存修改</button>
+              <button type="submit" class="am-btn am-btn-primary">保存修改</button>
             </div>
           </div>
         </form>
@@ -224,5 +183,7 @@
 <script src="/static/assets/js/amazeui.min.js"></script>
 
 <script src="/static/assets/js/app.js"></script>
+<script src="/static/js/project.js"></script>
+
 </body>
 </html>

@@ -9,11 +9,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="icon" type="image/png" href="static/assets/i/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="static/assets/i/app-icon72x72@2x.png">
+  <link rel="icon" type="image/png" href="/static/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="static/assets/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="static/assets/css/admin.css">
+  <link rel="stylesheet" href="/static/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="/static/assets/css/admin.css">
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -133,6 +133,7 @@
             <thead>
               <tr>
                 <th class="table-check"><input type="checkbox" /></th>
+				<th class="table-title">ID</th>
 				<th class="table-title">工程名称</th>
 				<th class="table-title">用户名</th>
 				<th class="table-type">IP地址</th>
@@ -143,15 +144,16 @@
               </tr>
           </thead>
           <tbody>
-
+			{{range .projects}}
             <tr>
               <td><input type="checkbox" /></td>
-              <td>cms-manage</td>
-              <td>cmsuser</td>
-              <td class="am-hide-sm-only">192.168.0.1</td>
-              <td class="am-hide-sm-only">20005</td>
-			<td class="am-hide-sm-only">/home/cmsuser/edu-cms/tomcat-cms-manage/</td>
-			<td class="am-hide-sm-only">运行</td>
+			  <td>{{.Id}}</td>
+              <td>{{.Name}}</td>
+              <td>{{.Username}}</td>
+              <td class="am-hide-sm-only">{{.IpAddress}}</td>
+              <td class="am-hide-sm-only">{{.Port}}</td>
+			<td class="am-hide-sm-only">{{.Path}}</td>
+			<td class="am-hide-sm-only">{{.Status}}</td>
               <td>
                 <div class="am-btn-toolbar">
                   <div class="am-btn-group am-btn-group-xs">
@@ -162,7 +164,7 @@
                 </div>
               </td>
             </tr>
-			
+			{{end}}
           </tbody>
         </table>
           <div class="am-cf">
@@ -199,13 +201,13 @@
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="static/assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="/static/assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="static/assets/js/amazeui.min.js"></script>
-<script src="static/assets/js/app.js"></script>
+<script src="/static/assets/js/amazeui.min.js"></script>
+<script src="/static/assets/js/app.js"></script>
 </body>
 </html>

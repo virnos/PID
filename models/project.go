@@ -3,8 +3,6 @@ package models
 import (
 	"errors"
 	"log"
-
-	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -14,20 +12,24 @@ import (
 //设备表
 type Project struct {
 	Id            int64
-	Name          string `orm:"size(32)" form:"Username"  valid:"Required;MaxSize(32);MinSize(4)"`
-	Username      string `orm:"size(32)" form:"Username"  valid:"Required;MaxSize(32);MinSize(4)"`
-	Password      string `orm:"size(32)" form:"Password"  valid:"Required;MaxSize(32);MinSize(6)"`
-	IpAddress     string `orm:"size(32)" form:"IpAddress" valid:"Required;MaxSize(15);MinSize(7)"`
-	Port          int16
+	Name          string    `orm:"size(32)" form:"Username"  valid:"Required;MaxSize(32);MinSize(4)"`
+	Username      string    `orm:"size(32)" form:"Username"  valid:"Required;MaxSize(32);MinSize(4)"`
+	Password      string    `orm:"size(32)" form:"Password"  valid:"Required;MaxSize(32);MinSize(6)"`
+	IpAddress     string    `orm:"size(32)" form:"IpAddress" valid:"Required;MaxSize(15);MinSize(7)"`
+	Port          uint16    `orm:"null"`
 	Path          string    `orm:"null;size(200)" form:"Path" valid:"MaxSize(200)"`
 	Remark        string    `orm:"null;size(256)" form:"Remark" valid:"MaxSize(256)"`
-	Status        int       `orm:"default(2)" form:"Status" valid:"Range(1,2)"`
+	Status        int       `orm:"default(0)" form:"Status" valid:"Range(0,1)"`
 	Lastlogintime time.Time `orm:"null;type(datetime)" form:"-"`
-	Createtime    time.Time `orm:"type(datetime);auto_now_add" `
+	Createtime    time.Time `orm:"type(datetime);auto_now_add"`
+}
+
+func init() {
+	orm.RegisterModel(new(Project))
 }
 
 func (p *Project) TableName() string {
-	return "Project" //beego.AppConfig.String("rbac_user_table")
+	return "project"
 }
 
 func (p *Project) Valid(v *validation.Validation) {
@@ -50,11 +52,6 @@ func checkProject(p *Project) (err error) {
 		}
 	}
 	return nil
-}
-
-func init() {
-	orm.RegisterModel(new(Project))
-	fmt.Printf("caonimabi")
 }
 
 /************************************************************/
@@ -81,15 +78,17 @@ func AddProject(p *Project) (int64, error) {
 		return 0, err
 	}
 	o := orm.NewOrm()
-	//	project := new(Project)
-	//	project.Username = u.Username
-	//	project.Password = u.Password
-	//	project.IpAddress = u.IpAddress
-	//	project.Port = u.Port
-	//	project.Remark = u.Remark
-	//	project.Status = u.Status
+	project := new(Project)
+	project.Name = p.Name
+	project.IpAddress = p.IpAddress
+	project.Username = p.Username
+	project.Password = p.Password
+	project.Path = p.Path
+	project.Port = p.Port
+	project.Remark = p.Remark
+	project.Status = p.Status
 
-	id, err := o.Insert(&p)
+	id, err := o.Insert(project)
 	return id, err
 }
 

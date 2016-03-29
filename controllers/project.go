@@ -2,6 +2,7 @@ package controllers
 
 import (
 	m "PID/models"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -37,16 +38,21 @@ func (this *ProjectController) Add() {
 	this.TplName = "add.html"
 }
 func (this *ProjectController) Save() {
+	fmt.Printf("Save")
 	p := m.Project{}
 	if err := this.ParseForm(&p); err != nil {
+		fmt.Printf(err.Error())
 		//handle error
 		//		this.Rsp(false, err.Error())
 		return
 	}
 	id, err := m.AddProject(&p)
+	fmt.Printf("AddProject.html")
+
 	if err == nil && id > 0 {
 		//		this.Rsp(true, "Success")
-		return
+		fmt.Printf("index.html")
+		this.Ctx.Redirect(302, "/project/index")
 	} else {
 		//		this.Rsp(false, err.Error())
 		return
